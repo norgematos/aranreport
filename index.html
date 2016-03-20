@@ -103,7 +103,7 @@
 </body>
 <script>
 $(document).ready(function(){
-	$.get('setPunch.php',function(answer){
+	$.get('http://norgematos/aranreport/setPunch.php',function(answer){
 		$('#container').html(answer);
 	});
 });
@@ -111,7 +111,7 @@ $(document).ready(function(){
 
 $('#container').on('click','.punch',function(){
 	console.log($('.punch').text());
-	$.post('setPunch.php',{
+	$.post('http://norgematos/aranreport/setPunch.php',{
 		reportpunch:$('.punch').text(),
 		reportplace: $('#reportplace').val()
 	},function(answer){
@@ -120,13 +120,13 @@ $('#container').on('click','.punch',function(){
 });
 
 $('.menu span').on('click',function(){
-	$.get($(this).attr('id')+'.php',function(answer){
+	$.get('http://norgematos/aranreport/'+$(this).attr('id')+'.php',function(answer){
 		$('#container').html(answer);
 	});
 });
 
 $('#container').on('click','#setPlace',function(){
-	$.post('addPlace.php',{
+	$.post('http://norgematos/aranreport/addPlace.php',{
 		place: $('#place').val()
 	},function(answer){
 		$('#container').html(answer);
@@ -134,7 +134,7 @@ $('#container').on('click','#setPlace',function(){
 });
 
 $('#container').on('click','#setShift',function(){
-	$.post('addShift.php',{
+	$.post('http://norgematos/aranreport/addShift.php',{
 		place: $('#place').val(),
 		shift: $('#shift').val(),
 	},function(answer){
