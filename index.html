@@ -127,7 +127,7 @@ $(document).ready(function(){
 	});
 	
 
-	$('#container').on('touchend','.btn-login',function(){
+	$('#container').on('touchend click','.btn-login',function(){
 		$.post('http://norgematos.net/aranreport/loginpage.php',{
 			username:$('#username').val(),
 			password:$('#password').val(),
@@ -137,7 +137,7 @@ $(document).ready(function(){
 		});
 	});
 
-	$('#container').on('touchend','.punch',function(){
+	$('#container').on('touchend click','.punch',function(){
 		console.log($('.punch').text());
 		$.post('http://norgematos.net/aranreport/setPunch.php',{
 			reportpunch:$('.punch').text(),
@@ -148,7 +148,7 @@ $(document).ready(function(){
 		});
 	});
 
-	$('.menu span').on('touchend',function(){
+	$('.menu span').on('touchend click',function(){
 		$.get('http://norgematos.net/aranreport/'+$(this).attr('id')+'.php',{
 			deviceid: fingerprint
 		},function(answer){
@@ -156,7 +156,7 @@ $(document).ready(function(){
 		});
 	});
 
-	$('#container').on('touchend','#setPlace',function(){
+	$('#container').on('touchend click','#setPlace',function(){
 		$.post('http://norgematos.net/aranreport/addPlace.php',{
 			place: $('#place').val(),
 			deviceid: fingerprint
@@ -165,7 +165,7 @@ $(document).ready(function(){
 		});
 	});
 
-	$('#container').on('touchend','#setShift',function(){
+	$('#container').on('touchend click','#setShift',function(){
 		$.post('http://norgematos.net/aranreport/addShift.php',{
 			place: $('#place').val(),
 			shift: $('#shift').val(),
