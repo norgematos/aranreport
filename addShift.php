@@ -1,17 +1,22 @@
 <?php
-include 'config.php';
-$UserID=1;
-//print_r($_POST);
-if(isset($_POST['place']) && $_POST['shift']){
-	$query = "SELECT ShiftID FROM `Shifts` WHERE PlaceID=".$_POST['place']." AND UserID=".$UserID;
+$deviceid = isset($_REQUEST['deviceid'])?$_REQUEST['deviceid']:'';
+include_once 'config.php';
+$row = checkdevice($deviceid);
+	$name = $row['Name'];
+	$UserID = $row['UserID'];
+	
+if($UserID=='') header('Location: http://norgematos.net/aranreport/loginpage.php');
+//print_r($_REQUEST);
+if(isset($_REQUEST['place']) && $_REQUEST['shift']){
+	$query = "SELECT ShiftID FROM `Shifts` WHERE PlaceID=".$_REQUEST['place']." AND UserID=".$UserID;
 	$res = mysql_query($query);
 	if(mysql_num_rows($res)>0){
 		$row = mysql_fetch_assoc($res);
 		$ShiftID = $row['ShiftID'];
-		$query = "UPDATE `Shifts` SET Shift=".$_POST['shift']." WHERE ShiftID=".$ShiftID;
+		$query = "UPDATE `Shifts` SET Shift=".$_REQUEST['shift']." WHERE ShiftID=".$ShiftID;
 	}
 	else{
-		$query = "INSERT `Shifts` (`UserID`,`PlaceID`,`Shift`) VALUES($UserID,'".$_POST['place']."','".$_POST['shift']."')";
+		$query = "INSERT `Shifts` (`UserID`,`PlaceID`,`Shift`) VALUES($UserID,'".$_REQUEST['place']."','".$_REQUEST['shift']."')";
 	}
 	$msg = $query;
 	mysql_query($query);
@@ -22,7 +27,6 @@ if(isset($_POST['place']) && $_POST['shift']){
 			
 			<h2><?=$name?>'s Shift</h2>
 			<div>
-				<form method='post'>
 				<div class='form'>Place: <select name='place' id='place'>
 				<?php
 				$query = "SELECT * FROM `Places`";
@@ -33,8 +37,7 @@ if(isset($_POST['place']) && $_POST['shift']){
 				?></select>
 				</div>
 				<div class='form'>Shift: <input type="number" step='0.01' name='shift' id='shift'></div>
-				<div class='form'><input type='Submit' value='Set'></div>
-				</form>
+				<div class='form'><input id='setShift' type='button' value='Set'></div>
 			</div>
 			<div class='table'>
 			<?php

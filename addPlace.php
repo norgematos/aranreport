@@ -1,7 +1,14 @@
 <?php
-include 'config.php';
-if(isset($_POST['place']) && trim(isset($_POST['place']))!==''){
-$query = "INSERT `Places` (`Name`) VALUES('".$_POST['place']."')";
+//$deviceid = isset($_REQUEST['deviceid'])?$_REQUEST['deviceid']:'';
+//echo $devideid;
+include_once 'config.php';
+$row = checkdevice($deviceid);
+	$name = $row['Name'];
+	$UserID = $row['UserID'];
+	//echo 'row: ';print_r($row);
+if($UserID=='') header('Location: http://norgematos.net/aranreport/loginpage.php');
+if(isset($_REQUEST['place']) && trim(isset($_REQUEST['place']))!==''){
+$query = "INSERT `Places` (`Name`) VALUES('".$_REQUEST['place']."')";
 mysql_query($query);
 }
 
@@ -12,10 +19,8 @@ $name = $row['Name'];
 ?>
 			<h2>Add Place</h2>
 			<div>
-				<form method='post'>
 				<div class='form'>Place: <input type="text" name='place' id='place'></div>
-				<div class='form'><input type='Submit' value='Add'></div>
-				</form>
+				<div class='form'><input id='setShift' type='Submit' value='Add'></div>
 			</div>
 			<div class='table'>
 			<?php
